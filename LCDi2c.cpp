@@ -22,6 +22,17 @@
 
 #include "LCDi2c.h"
 
+#ifndef ESP32
+#include "util/delay.h"
+
+#else
+#include "esp_rom_sys.h"
+
+#define _delay_us(us) esp_rom_delay_us((us))
+#define _delay_ms(ms) esp_rom_delay_us(((uint32_t)1000)*(ms))
+
+#endif
+
 LCDi2c::LCDi2c(uint8_t address) {
 	this->address = address;
 	backlight = LCD_BACKLIGHT_ON;
@@ -84,7 +95,7 @@ void LCDi2c::locate(uint8_t column, uint8_t row) {
 	command(LCD_SET_DDRAM_ADDR | (column + rowOffsets[row]));
 	}
 
-void LCDi2c::display(mode_t mode) {
+void LCDi2c::display(lcd_mode_t mode) {
 	switch(mode) {
 		case DISPLAY_ON :
 			displaycontrol |= LCD_DISPLAY_ON;

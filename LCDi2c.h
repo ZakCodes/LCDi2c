@@ -28,7 +28,6 @@
 #define LCD_I2C_H
 
 #include "Arduino.h"
-#include "util/delay.h"
 #include "Print.h"
 #include "Wire.h"
 
@@ -92,7 +91,7 @@ typedef enum {
 	AUTOSCROLL_OFF,
 	BACKLIGHT_ON,
 	BACKLIGHT_OFF,
-	} mode_t;
+	} lcd_mode_t;
 
 class LCDi2c : public Print {
 	public:
@@ -136,7 +135,7 @@ class LCDi2c : public Print {
 		 * - AUTOSCROLL_OFF This will 'left justify' text from the cursor
 		 * 
 		 */
-		void display(mode_t mode);
+		void display(lcd_mode_t mode);
 
 		/**
 		 * @brief set the cursor to a given position
